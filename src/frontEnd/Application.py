@@ -37,7 +37,7 @@ from projManagement import Worker
 from frontEnd import ProjectExplorer
 from frontEnd import Workspace
 from frontEnd import DockArea
-from PyQt6.QtCore import QSize
+from PyQt6.QtCore import QSize,Qt
 import shutil
 import time
 import sys
@@ -244,7 +244,7 @@ class Application(QtWidgets.QMainWindow):
         self.lefttoolbar.addAction(self.nghdl)
         self.lefttoolbar.addAction(self.omedit)
         self.lefttoolbar.addAction(self.omoptim)
-        self.lefttoolbar.setOrientation(QtCore.Qt.Vertical)
+        self.lefttoolbar.setOrientation(Qt.Orientation.Vertical)
         self.lefttoolbar.setIconSize(QSize(40, 40))
 
     def closeEvent(self, event):
@@ -883,7 +883,7 @@ class MainView(QtWidgets.QWidget):
         self.obj_projectExplorer = ProjectExplorer.ProjectExplorer()
 
         # Adding content to vertical middle Split.
-        self.middleSplit.setOrientation(QtCore.Qt.Vertical)
+        self.middleSplit.setOrientation(Qt.Orientation.Vertical)
         self.middleSplit.addWidget(self.obj_dockarea)
         self.middleSplit.addWidget(self.noteArea)
 

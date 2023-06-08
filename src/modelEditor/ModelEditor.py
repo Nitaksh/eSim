@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QTableWidgetItem
 import xml.etree.ElementTree as ET
 from configuration.Appconfig import Appconfig
@@ -41,7 +42,7 @@ class ModelEditorclass(QtWidgets.QWidget):
         self.layout = QtWidgets.QVBoxLayout()
         self.splitter = QtWidgets.QSplitter()
         self.grid = QtWidgets.QGridLayout()
-        self.splitter.setOrientation(QtCore.Qt.Vertical)
+        self.splitter.setOrientation(Qt.Orientation.Vertical)
 
         # Initialise the table view
         self.modeltable = QtWidgets.QTableWidget()

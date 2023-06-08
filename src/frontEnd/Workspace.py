@@ -17,6 +17,7 @@
 # =========================================================================
 
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtCore import Qt
 from configuration.Appconfig import Appconfig
 import time
 import os
@@ -45,7 +46,7 @@ class Workspace(QtWidgets.QWidget):
 
         self.mainwindow = QtWidgets.QVBoxLayout()
         self.split = QtWidgets.QSplitter()
-        self.split.setOrientation(QtCore.Qt.Vertical)
+        self.split.setOrientation(Qt.Orientation.Vertical)
 
         self.grid = QtWidgets.QGridLayout()
         self.note = QtWidgets.QTextEdit(self)

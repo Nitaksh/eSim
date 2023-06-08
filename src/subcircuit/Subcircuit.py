@@ -1,4 +1,5 @@
 from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 from configuration.Appconfig import Appconfig
 from projManagement.Validation import Validation
 from subcircuit.newSub import NewSub
@@ -27,7 +28,7 @@ class Subcircuit(QtWidgets.QWidget):
         self.obj_dockarea = parent
         self.layout = QtWidgets.QVBoxLayout()
         self.splitter = QtWidgets.QSplitter()
-        self.splitter.setOrientation(QtCore.Qt.Vertical)
+        self.splitter.setOrientation(Qt.Orientation.Vertical)
 
         self.newbtn = QtWidgets.QPushButton('New Subcircuit Schematic')
         self.newbtn.setToolTip('<b>To create new Subcircuit Schematic</b>')
