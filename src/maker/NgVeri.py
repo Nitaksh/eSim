@@ -29,6 +29,7 @@
 
 # importing the files and libraries
 from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 from . import Maker
 from . import ModelGeneration
 import os
@@ -74,7 +75,7 @@ class NgVeri(QtWidgets.QWidget):
         self.grid = QtWidgets.QGridLayout()
         self.setLayout(self.grid)
 
-        self.grid.addWidget(self.createoptionsBox(), 0, 0, QtCore.Qt.AlignTop)
+        self.grid.addWidget(self.createoptionsBox(), 0, 0, Qt.AlignTop)
         self.grid.addWidget(self.creategroup(), 1, 0, 5, 0)
 
         self.show()
@@ -89,8 +90,8 @@ class NgVeri(QtWidgets.QWidget):
                 "Error Message",
                 "<b>Error: No Verilog File Chosen. \
                 Please choose a verilog file in Makerchip Tab</b>",
-                QtWidgets.QMessageBox.Ok)
-            if reply == QtWidgets.QMessageBox.Ok:
+                QtWidgets.QMessageBox.StandardButton.Ok)
+            if reply == QtWidgets.QMessageBox.StandardButton.Ok:
                 self.obj_Appconfig.print_error(
                     'No Verilog File Chosen. '
                     'Please choose a verilog file in Makerchip Tab'
@@ -109,7 +110,7 @@ class NgVeri(QtWidgets.QWidget):
                 None, "Warning Message",
                 "Please accept the Makerchip Terms of Service "
                 "to proceed further.",
-                QtWidgets.QMessageBox.Ok
+                QtWidgets.QMessageBox.StandardButton.Ok
             )
 
             return
@@ -182,8 +183,8 @@ class NgVeri(QtWidgets.QWidget):
                 "Error Message",
                 "<b>Error: No Verilog File Chosen. \
                 Please choose a verilog file in Makerchip Tab</b>",
-                QtWidgets.QMessageBox.Ok)
-            if reply == QtWidgets.QMessageBox.Ok:
+                QtWidgets.QMessageBox.StandardButton.Ok)
+            if reply == QtWidgets.QMessageBox.StandardButton.Ok:
                 self.obj_Appconfig.print_error(
                     'No Verilog File Chosen. Please choose \
                      a verilog file in Makerchip Tab')
@@ -203,8 +204,8 @@ class NgVeri(QtWidgets.QWidget):
                 "Error Message",
                 "<b>Error: No Verilog File Chosen. \
                 Please choose a verilog file in Makerchip Tab</b>",
-                QtWidgets.QMessageBox.Ok)
-            if reply == QtWidgets.QMessageBox.Ok:
+                QtWidgets.QMessageBox.StandardButton.Ok)
+            if reply == QtWidgets.QMessageBox.StandardButton.Ok:
                 self.obj_Appconfig.print_error(
                     'No Verilog File Chosen. Please choose \
                     a verilog file in Makerchip Tab')
@@ -274,9 +275,9 @@ class NgVeri(QtWidgets.QWidget):
         ret = QtWidgets.QMessageBox.warning(
             None, "Warning", '''<b>Do you want to remove the model: ''' +
             text,
-            QtWidgets.QMessageBox.Ok, QtWidgets.QMessageBox.Cancel
+            QtWidgets.QMessageBox.StandardButton.Ok, QtWidgets.QMessageBox.StandardButton.Cancel
         )
-        if ret == QtWidgets.QMessageBox.Ok:
+        if ret == QtWidgets.QMessageBox.StandardButton.Ok:
             mod = open(self.digital_home + '/modpath.lst', 'r')
             data = mod.readlines()
             mod.close()
@@ -304,7 +305,7 @@ class NgVeri(QtWidgets.QWidget):
                     None, "Error Message",
                     "The verilog model '" + str(text) +
                     "' could not be removed: " + str(err),
-                    QtWidgets.QMessageBox.Ok
+                    QtWidgets.QMessageBox.StandardButton.Ok
                 )
 
     def lint_off_edit(self, text):
@@ -326,10 +327,10 @@ class NgVeri(QtWidgets.QWidget):
             "Warning",
             '''<b>Do you want to remove the lint off error: ''' +
             text,
-            QtWidgets.QMessageBox.Ok,
-            QtWidgets.QMessageBox.Cancel)
+            QtWidgets.QMessageBox.StandardButton.Ok,
+            QtWidgets.QMessageBox.StandardButton.Cancel)
 
-        if ret == QtWidgets.QMessageBox.Ok:
+        if ret == QtWidgets.QMessageBox.StandardButton.Ok:
             file = open(init_path + "library/tlv/lint_off.txt", 'r')
             data = file.readlines()
             file.close()

@@ -1,4 +1,5 @@
 from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 import os
 
 
@@ -21,7 +22,7 @@ class Welcome(QtWidgets.QWidget):
             init_path + "library/browser/welcome.html")
         )
         self.browser.setOpenExternalLinks(True)
-        self.browser.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.browser.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
         self.vlayout.addWidget(self.browser)
         self.setLayout(self.vlayout)

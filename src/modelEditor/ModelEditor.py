@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QTableWidgetItem
 import xml.etree.ElementTree as ET
 from configuration.Appconfig import Appconfig
@@ -41,7 +42,7 @@ class ModelEditorclass(QtWidgets.QWidget):
         self.layout = QtWidgets.QVBoxLayout()
         self.splitter = QtWidgets.QSplitter()
         self.grid = QtWidgets.QGridLayout()
-        self.splitter.setOrientation(QtCore.Qt.Vertical)
+        self.splitter.setOrientation(Qt.Orientation.Vertical)
 
         # Initialise the table view
         self.modeltable = QtWidgets.QTableWidget()
@@ -140,7 +141,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 msg.setModal(True)
                 msg.setWindowTitle("Error Message")
                 msg.showMessage('The model name cannot be empty')
-                msg.exec_()
+                msg.exec()
                 return
 
             self.newflag = 1
@@ -447,7 +448,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 msg.setModal(True)
                 msg.setWindowTitle("Error Message")
                 msg.showMessage('The parameter name cannot be empty')
-                msg.exec_()
+                msg.exec()
                 return
             elif text1 in list(self.modeldict.keys()):
                 self.msg = QtWidgets.QErrorMessage(self)
@@ -456,7 +457,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 self.msg.showMessage(
                     "The paramaeter " + text1 + " is already in the list"
                 )
-                self.msg.exec_()
+                self.msg.exec()
                 return
             text2, ok = QtWidgets.QInputDialog.getText(
                 self, 'Value', 'Enter Value'
@@ -469,7 +470,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                     msg.setModal(True)
                     msg.setWindowTitle("Error Message")
                     msg.showMessage('Value cannot be empty')
-                    msg.exec_()
+                    msg.exec()
                     return
 
                 currentRowCount = self.modeltable.rowCount()
@@ -641,7 +642,7 @@ class ModelEditorclass(QtWidgets.QWidget):
 
         msg = "Model saved successfully!"
         QtWidgets.QMessageBox.information(
-            self, "Information", msg, QtWidgets.QMessageBox.Ok
+            self, "Information", msg, QtWidgets.QMessageBox.StandardButton.Ok
         )
 
         os.chdir(defaultcwd)
@@ -663,7 +664,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 self.msg.setWindowTitle("Error Message")
                 self.msg.showMessage(
                     'The file with name ' + text + ' already exists.')
-                self.msg.exec_()
+                self.msg.exec()
 
     def savethefile(self, editfile):
         '''
@@ -700,7 +701,7 @@ class ModelEditorclass(QtWidgets.QWidget):
 
         msg = "Model saved successfully!"
         QtWidgets.QMessageBox.information(
-            self, "Information", msg, QtWidgets.QMessageBox.Ok
+            self, "Information", msg, QtWidgets.QMessageBox.StandardButton.Ok
         )
 
     def removeparameter(self):
@@ -724,7 +725,7 @@ class ModelEditorclass(QtWidgets.QWidget):
             msg.setModal(True)
             msg.setWindowTitle("Error Message")
             msg.showMessage('No parameter selected to remove')
-            msg.exec_()
+            msg.exec()
 
     def converttoxml(self):
         '''
@@ -857,7 +858,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 msg.setModal(True)
                 msg.setWindowTitle("Error Message")
                 msg.showMessage('The model library name cannot be empty')
-                msg.exec_()
+                msg.exec()
             else:
                 tree.write(text + ".xml")
                 fileopen = open(text + ".lib", 'w')

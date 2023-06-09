@@ -2,6 +2,7 @@ from __future__ import division  # Used for decimal division
 # eg: 2/3=0.66 and not '0' 6/2=3.0 and 6//2=3
 import os
 from PyQt6 import QtGui, QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 from decimal import Decimal, getcontext
 from matplotlib.backends.backend_qt5agg\
     import FigureCanvasQTAgg as FigureCanvas
@@ -140,8 +141,8 @@ class plotWindow(QtWidgets.QMainWindow):
         self.plotfuncbtn = QtWidgets.QPushButton("Plot Function")
         self.plotfuncbtn.setToolTip('<b>Press</b> to Plot the function')
 
-        self.palette1.setColor(QtGui.QPalette.Foreground, QtCore.Qt.blue)
-        self.palette2.setColor(QtGui.QPalette.Foreground, QtCore.Qt.red)
+        self.palette1.setColor(QtGui.QPalette.Foreground, Qt.blue)
+        self.palette2.setColor(QtGui.QPalette.Foreground, Qt.red)
         self.funcName.setPalette(self.palette1)
         self.funcExample.setPalette(self.palette2)
         # Widgets for grid, plot button and multimeter button.
@@ -559,7 +560,7 @@ class MultimeterWidgetClass(QtWidgets.QWidget):
         self.setGeometry(loc_x, loc_y, 200, 100)
         self.setGeometry(loc_x, loc_y, 300, 100)
         self.setWindowTitle("MultiMeter")
-        self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
         self.show()
 
 
@@ -672,7 +673,7 @@ class DataExtraction:
             self.msg.setModal(True)
             self.msg.setWindowTitle("Error Message")
             self.msg.showMessage('Unable to open plot data files.')
-            self.msg.exec_()
+            self.msg.exec()
 
         try:
             for l in alli[3].split(" "):
@@ -687,7 +688,7 @@ class DataExtraction:
             self.msg.setModal(True)
             self.msg.setWindowTitle("Error Message")
             self.msg.showMessage('Unable to read Analysis File.')
-            self.msg.exec_()
+            self.msg.exec()
 
         d = self.numberFinder(fpath)
         d1 = int(d[0] + 1)

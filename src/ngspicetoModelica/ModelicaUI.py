@@ -2,6 +2,7 @@ import os
 import glob
 import traceback
 from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtCore import Qt
 from configuration.Appconfig import Appconfig
 from projManagement import Worker
 from projManagement.Validation import Validation
@@ -220,7 +221,7 @@ class OpenModelicaEditor(QtWidgets.QWidget):
                 "Ngspice netlist successfully converted to OpenModelica " +
                 "netlist"
             )
-            self.msg.exec_()
+            self.msg.exec()
 
         except BaseException as e:
             traceback.print_exc()
@@ -259,8 +260,8 @@ class OpenModelicaEditor(QtWidgets.QWidget):
                 "https://www.openmodelica.org/download/download-windows"
                 ">OpenModelica Windows</a> and install latest version.<br/>"
                 )
-            self.msg.setTextFormat(QtCore.Qt.RichText)
+            self.msg.setTextFormat(Qt.RichText)
             self.msg.setText(self.msgContent)
             self.msg.setWindowTitle("Missing OpenModelica")
             self.obj_appconfig.print_info(self.msgContent)
-            self.msg.exec_()
+            self.msg.exec()

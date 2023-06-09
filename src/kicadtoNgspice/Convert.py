@@ -709,7 +709,7 @@ class Convert:
             self.msg.setWindowTitle("Error Message")
             self.msg.showMessage(
                 "Conversion failed. Please add all Subcircuits.")
-            self.msg.exec_()
+            self.msg.exec()
             raise Exception('All subcircuit directories need to be specified.')
         elif not subList:
             print("No Subcircuit Added in the schematic")
