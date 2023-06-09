@@ -1,4 +1,5 @@
 from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 import os
 import json
 from configuration.Appconfig import Appconfig
@@ -71,7 +72,7 @@ class ProjectExplorer(QtWidgets.QWidget):
         self.window.addWidget(self.treewidget)
         self.treewidget.expanded.connect(self.refreshInstant)
         self.treewidget.doubleClicked.connect(self.openProject)
-        self.treewidget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.treewidget.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.treewidget.customContextMenuRequested.connect(self.openMenu)
         self.setLayout(self.window)
         self.show()

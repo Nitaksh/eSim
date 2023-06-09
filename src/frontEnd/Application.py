@@ -95,28 +95,28 @@ class Application(QtWidgets.QMainWindow):
                 Converter, OM Optimisation)
         """
         # Top Tool bar
-        self.newproj = QtWidgets.QAction(
+        self.newproj = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/newProject.png'),
             '<b>New Project</b>', self
         )
         self.newproj.setShortcut('Ctrl+N')
         self.newproj.triggered.connect(self.new_project)
 
-        self.openproj = QtWidgets.QAction(
+        self.openproj = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/openProject.png'),
             '<b>Open Project</b>', self
         )
         self.openproj.setShortcut('Ctrl+O')
         self.openproj.triggered.connect(self.open_project)
 
-        self.closeproj = QtWidgets.QAction(
+        self.closeproj = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/closeProject.png'),
             '<b>Close Project</b>', self
         )
         self.closeproj.setShortcut('Ctrl+X')
         self.closeproj.triggered.connect(self.close_project)
 
-        self.wrkspce = QtWidgets.QAction(
+        self.wrkspce = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/workspace.ico'),
             '<b>Change Workspace</b>', self
         )
@@ -126,17 +126,17 @@ class Application(QtWidgets.QMainWindow):
         self.switchmode = None
         self.validate_mode()
         if self.online_flag is True:
-            self.switchmode = QtWidgets.QAction(QtGui.QIcon(
+            self.switchmode = QtGui.QAction(QtGui.QIcon(
                 init_path + 'images/online.png'),
                 '<b>Go Offline</b>', self
             )
         elif self.online_flag is False:
-            self.switchmode = QtWidgets.QAction(QtGui.QIcon(
+            self.switchmode = QtGui.QAction(QtGui.QIcon(
                 init_path + 'images/offline.png'),
                 '<b>Go Online</b>', self
             )
         elif self.online_flag is None:
-            self.switchmode = QtWidgets.QAction(QtGui.QIcon(
+            self.switchmode = QtGui.QAction(QtGui.QIcon(
                 init_path + 'images/disable.png'),
                 '<b>Mode switching has been disabled. ' +
                 'Default mode set to offline</b>', self
@@ -145,7 +145,7 @@ class Application(QtWidgets.QMainWindow):
         self.switchmode.setShortcut('Ctrl+G')
         self.switchmode.triggered.connect(self.change_mode)
 
-        self.helpfile = QtWidgets.QAction(
+        self.helpfile = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/helpProject.png'),
             '<b>Help</b>', self
         )
@@ -179,54 +179,54 @@ class Application(QtWidgets.QMainWindow):
         self.topToolbar.addWidget(self.logo)
 
         # Left Tool bar Action Widget
-        self.kicad = QtWidgets.QAction(
+        self.kicad = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/kicad.png'),
             '<b>Open Schematic</b>', self
         )
         self.kicad.triggered.connect(self.obj_kicad.openSchematic)
 
-        self.conversion = QtWidgets.QAction(
+        self.conversion = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/ki-ng.png'),
             '<b>Convert KiCad to Ngspice</b>', self
         )
         self.conversion.triggered.connect(self.obj_kicad.openKicadToNgspice)
 
-        self.ngspice = QtWidgets.QAction(
+        self.ngspice = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/ngspice.png'),
             '<b>Simulate</b>', self
         )
         self.ngspice.triggered.connect(self.open_ngspice)
 
-        self.model = QtWidgets.QAction(
+        self.model = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/model.png'),
             '<b>Model Editor</b>', self
         )
         self.model.triggered.connect(self.open_modelEditor)
 
-        self.subcircuit = QtWidgets.QAction(
+        self.subcircuit = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/subckt.png'),
             '<b>Subcircuit</b>', self
         )
         self.subcircuit.triggered.connect(self.open_subcircuit)
 
-        self.nghdl = QtWidgets.QAction(
+        self.nghdl = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/nghdl.png'), '<b>NGHDL</b>', self
         )
         self.nghdl.triggered.connect(self.open_nghdl)
 
-        self.makerchip = QtWidgets.QAction(
+        self.makerchip = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/makerchip.png'),
             '<b>Makerchip-NgVeri</b>', self
         )
         self.makerchip.triggered.connect(self.open_makerchip)
 
-        self.omedit = QtWidgets.QAction(
+        self.omedit = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/omedit.png'),
             '<b>Modelica Converter</b>', self
         )
         self.omedit.triggered.connect(self.open_OMedit)
 
-        self.omoptim = QtWidgets.QAction(
+        self.omoptim = QtGui.QAction(
             QtGui.QIcon(init_path + 'images/omoptim.png'),
             '<b>OM Optimisation</b>', self
         )
@@ -917,7 +917,7 @@ def main(args):
 
     splash_pix = QtGui.QPixmap(init_path + 'images/splash_screen_esim.png')
     splash = QtWidgets.QSplashScreen(
-        appView, splash_pix, QtCore.Qt.WindowStaysOnTopHint
+        appView, splash_pix, Qt.WindowType.WindowStaysOnTopHint
     )
     splash.setMask(splash_pix.mask())
     splash.setDisabled(True)

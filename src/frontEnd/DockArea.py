@@ -1,4 +1,5 @@
 from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 from ngspiceSimulation.pythonPlotting import plotWindow
 from ngspiceSimulation.NgspiceWidget import NgspiceWidget
 from configuration.Appconfig import Appconfig
@@ -49,7 +50,7 @@ class DockArea(QtWidgets.QMainWindow):
             QWidget { border-radius: 15px; border: 1px solid gray;\
                 padding: 5px; width: 200px; height: 150px;  } \
             ")
-            self.addDockWidget(QtCore.Qt.TopDockWidgetArea, dock[dockName])
+            self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea, dock[dockName])
 
         # self.tabifyDockWidget(dock['Notes'],dock['Blank'])
         self.show()

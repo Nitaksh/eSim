@@ -2,6 +2,7 @@ from __future__ import division  # Used for decimal division
 # eg: 2/3=0.66 and not '0' 6/2=3.0 and 6//2=3
 import os
 from PyQt6 import QtGui, QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 from decimal import Decimal, getcontext
 from matplotlib.backends.backend_qt5agg\
     import FigureCanvasQTAgg as FigureCanvas
@@ -559,7 +560,7 @@ class MultimeterWidgetClass(QtWidgets.QWidget):
         self.setGeometry(loc_x, loc_y, 200, 100)
         self.setGeometry(loc_x, loc_y, 300, 100)
         self.setWindowTitle("MultiMeter")
-        self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
         self.show()
 
 
