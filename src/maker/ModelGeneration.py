@@ -204,7 +204,7 @@ class ModelGeneration(QtWidgets.QWidget):
                 "Error Message",
                 "<b>Error: File name and module \
                 name are not same. Please ensure that they are same</b>",
-                QtWidgets.QMessageBox.Ok)
+                QtWidgets.QMessageBox.StandardButton.Ok)
 
             self.obj_Appconfig.print_info(
                 'NgVeri stopped due to file \
@@ -1026,10 +1026,10 @@ and set the load for input ports */
             reply = QtWidgets.QMessageBox.critical(
                 None, "Error Message",
                 "<b>Error: No File Chosen. Please chose a file</b>",
-                QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel
+                QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel
             )
 
-            if reply == QtWidgets.QMessageBox.Ok:
+            if reply == QtWidgets.QMessageBox.StandardButton.Ok:
                 self.addfile()
 
                 if includefile == "":
@@ -1037,7 +1037,7 @@ and set the load for input ports */
 
                 self.obj_Appconfig.print_info('Add Other Files Called')
 
-            elif reply == QtWidgets.QMessageBox.Cancel:
+            elif reply == QtWidgets.QMessageBox.StandardButton.Cancel:
                 self.obj_Appconfig.print_info('No File Chosen')
                 return
 
@@ -1075,10 +1075,10 @@ and set the load for input ports */
             reply = QtWidgets.QMessageBox.critical(
                 None, "Error Message",
                 "<b>Error: No Folder Chosen. Please chose a folder</b>",
-                QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel
+                QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel
             )
 
-            if reply == QtWidgets.QMessageBox.Ok:
+            if reply == QtWidgets.QMessageBox.StandardButton.Ok:
                 self.addfolder()
 
                 if includefolder == "":
@@ -1086,7 +1086,7 @@ and set the load for input ports */
 
                 self.obj_Appconfig.print_info('Add Folder Called')
 
-            elif reply == QtWidgets.QMessageBox.Cancel:
+            elif reply == QtWidgets.QMessageBox.StandardButton.Cancel:
                 self.obj_Appconfig.print_info('No Folder Chosen')
                 return
 
@@ -1099,12 +1099,12 @@ and set the load for input ports */
              of the folder to be added press "Yes".\
                     If you want complete folder \
                     to be added, press "No". </b>''',
-            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
+            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No
         )
-        if reply == QtWidgets.QMessageBox.Yes:
+        if reply == QtWidgets.QMessageBox.StandardButton.Yes:
             self.cmd = "cp -a " + includefolder + "/. " + self.modelpath
             self.obj_Appconfig.print_info('Adding Contents of the Folder')
-        elif reply == QtWidgets.QMessageBox.No:
+        elif reply == QtWidgets.QMessageBox.StandardButton.No:
             self.cmd = "cp -R " + includefolder + " " + self.modelpath
             self.obj_Appconfig.print_info('Adding the Folder')
 
@@ -1196,13 +1196,13 @@ and set the load for input ports */
         #     reply=QtWidgets.QMessageBox.critical(
         #             None, "Error Message",
         #             "<b>Error: No File Chosen. Please chose a file</b>",
-        #             QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel
+        #             QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel
         #         )
-        #     if reply == QtWidgets.QMessageBox.Ok:
+        #     if reply == QtWidgets.QMessageBox.StandardButton.Ok:
         #         self.addfile()
         #         self.obj_Appconfig.print_info('Add Other Files Called')
 
-        #     elif reply == QtWidgets.QMessageBox.Cancel:
+        #     elif reply == QtWidgets.QMessageBox.StandardButton.Cancel:
         #         self.obj_Appconfig.print_info('No File Chosen')
         # filename = os.path.basename(includefile)
         # self.modelpath=self.digital_home+"/"+self.fname.split('.')[0]+"/"

@@ -642,7 +642,7 @@ class ModelEditorclass(QtWidgets.QWidget):
 
         msg = "Model saved successfully!"
         QtWidgets.QMessageBox.information(
-            self, "Information", msg, QtWidgets.QMessageBox.Ok
+            self, "Information", msg, QtWidgets.QMessageBox.StandardButton.Ok
         )
 
         os.chdir(defaultcwd)
@@ -701,7 +701,7 @@ class ModelEditorclass(QtWidgets.QWidget):
 
         msg = "Model saved successfully!"
         QtWidgets.QMessageBox.information(
-            self, "Information", msg, QtWidgets.QMessageBox.Ok
+            self, "Information", msg, QtWidgets.QMessageBox.StandardButton.Ok
         )
 
     def removeparameter(self):

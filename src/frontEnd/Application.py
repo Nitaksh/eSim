@@ -268,11 +268,11 @@ class Application(QtWidgets.QMainWindow):
         exit_msg = "Are you sure you want to exit the program?"
         exit_msg += " All unsaved data will be lost."
         reply = QtWidgets.QMessageBox.question(
-            self, 'Message', exit_msg, QtWidgets.QMessageBox.Yes,
-            QtWidgets.QMessageBox.No
+            self, 'Message', exit_msg, QtWidgets.QMessageBox.StandardButton.Yes,
+            QtWidgets.QMessageBox.StandardButton.No
         )
 
-        if reply == QtWidgets.QMessageBox.Yes:
+        if reply == QtWidgets.QMessageBox.StandardButton.Yes:
             for proc in self.obj_appconfig.procThread_list:
                 try:
                     proc.terminate()
@@ -296,7 +296,7 @@ class Application(QtWidgets.QMainWindow):
             event.accept()
             self.systemTrayIcon.showMessage('Exit', 'eSim is Closed.')
 
-        elif reply == QtWidgets.QMessageBox.No:
+        elif reply == QtWidgets.QMessageBox.StandardButton.No:
             event.ignore()
 
     def new_project(self):

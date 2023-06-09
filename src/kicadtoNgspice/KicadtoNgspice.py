@@ -772,7 +772,7 @@ class MainWindow(QtWidgets.QWidget):
             self.msg = "The KiCad to Ngspice conversion completed "
             self.msg += "successfully!"
             QtWidgets.QMessageBox.information(
-                self, "Information", self.msg, QtWidgets.QMessageBox.Ok
+                self, "Information", self.msg, QtWidgets.QMessageBox.StandardButton.Ok
             )
         except Exception as e:
             print("Exception Message: ", e)
