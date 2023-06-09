@@ -761,7 +761,7 @@ class Application(QtWidgets.QMainWindow):
                          <a href=https://www.openmodelica.org/download/\
                         download-windows>OpenModelica Windows</a>\
                          and install latest version.<br/>"
-                        self.msg.setTextFormat(QtCore.Qt.RichText)
+                        self.msg.setTextFormat(Qt.RichText)
                         self.msg.setText(self.msgContent)
                         self.msg.setWindowTitle("Missing OpenModelica")
                         self.obj_appconfig.print_info(self.msgContent)
@@ -831,7 +831,7 @@ class Application(QtWidgets.QMainWindow):
                 "https://www.openmodelica.org/download/download-windows"
                 ">OpenModelica Windows</a> and install latest version.<br/>"
             )
-            self.msg.setTextFormat(QtCore.Qt.RichText)
+            self.msg.setTextFormat(Qt.RichText)
             self.msg.setText(self.msgContent)
             self.msg.setWindowTitle("Error Message")
             self.obj_appconfig.print_info(self.msgContent)

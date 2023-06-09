@@ -29,6 +29,7 @@
 
 # importing the files and libraries
 from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 from . import Maker
 from . import ModelGeneration
 import os
@@ -74,7 +75,7 @@ class NgVeri(QtWidgets.QWidget):
         self.grid = QtWidgets.QGridLayout()
         self.setLayout(self.grid)
 
-        self.grid.addWidget(self.createoptionsBox(), 0, 0, QtCore.Qt.AlignTop)
+        self.grid.addWidget(self.createoptionsBox(), 0, 0, Qt.AlignTop)
         self.grid.addWidget(self.creategroup(), 1, 0, 5, 0)
 
         self.show()

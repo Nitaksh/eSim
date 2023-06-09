@@ -44,7 +44,7 @@ class makerchip(QtWidgets.QWidget):
 
         # filecount=int(open("a.txt",'r').read())
         print(filecount)
-        # self.splitter.setOrientation(QtCore.Qt.Vertical)
+        # self.splitter.setOrientation(Qt.Vertical)
         print("==================================")
         print("Makerchip and Verilog to Ngspice Converter")
         print("==================================")

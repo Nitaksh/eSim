@@ -29,7 +29,7 @@
 # importing the files and libraries
 import hdlparse.verilog_parser as vlog
 from PyQt6 import QtCore, QtWidgets
-from PyQt6.QtCore import QThread
+from PyQt6.QtCore import QThread,Qt
 from configuration.Appconfig import Appconfig
 import os
 import watchdog.events
@@ -90,7 +90,7 @@ class Maker(QtWidgets.QWidget):
         self.grid = QtWidgets.QGridLayout()
         self.setLayout(self.grid)
 
-        self.grid.addWidget(self.createoptionsBox(), 0, 0, QtCore.Qt.AlignTop)
+        self.grid.addWidget(self.createoptionsBox(), 0, 0, Qt.AlignTop)
         self.grid.addWidget(self.creategroup(), 1, 0, 5, 0)
         # self.grid.addWidget(self.creategroup(), 1, 0, 5, 0)
         self.show()
