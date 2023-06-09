@@ -141,7 +141,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 msg.setModal(True)
                 msg.setWindowTitle("Error Message")
                 msg.showMessage('The model name cannot be empty')
-                msg.exec_()
+                msg.exec()
                 return
 
             self.newflag = 1
@@ -448,7 +448,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 msg.setModal(True)
                 msg.setWindowTitle("Error Message")
                 msg.showMessage('The parameter name cannot be empty')
-                msg.exec_()
+                msg.exec()
                 return
             elif text1 in list(self.modeldict.keys()):
                 self.msg = QtWidgets.QErrorMessage(self)
@@ -470,7 +470,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                     msg.setModal(True)
                     msg.setWindowTitle("Error Message")
                     msg.showMessage('Value cannot be empty')
-                    msg.exec_()
+                    msg.exec()
                     return
 
                 currentRowCount = self.modeltable.rowCount()
@@ -725,7 +725,7 @@ class ModelEditorclass(QtWidgets.QWidget):
             msg.setModal(True)
             msg.setWindowTitle("Error Message")
             msg.showMessage('No parameter selected to remove')
-            msg.exec_()
+            msg.exec()
 
     def converttoxml(self):
         '''
@@ -858,7 +858,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 msg.setModal(True)
                 msg.setWindowTitle("Error Message")
                 msg.showMessage('The model library name cannot be empty')
-                msg.exec_()
+                msg.exec()
             else:
                 tree.write(text + ".xml")
                 fileopen = open(text + ".lib", 'w')

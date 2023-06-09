@@ -75,7 +75,7 @@ class Subcircuit(QtWidgets.QWidget):
                 msg.setModal(True)
                 msg.setWindowTitle("Error Message")
                 msg.showMessage('The schematic name cannot be empty')
-                msg.exec_()
+                msg.exec()
                 return
 
             self.schematic_name = (str(text))

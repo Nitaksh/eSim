@@ -107,7 +107,7 @@ class WorkerThread(QtCore.QThread):
                 'Please select the project first. You can either ' +
                 'create a new project or open an existing project.'
             )
-            msg.exec_()
+            msg.exec()
 
             return
 

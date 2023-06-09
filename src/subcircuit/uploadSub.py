@@ -99,7 +99,7 @@ class UploadSub(QtWidgets.QWidget):
             msg.showMessage(
                 "The project already exist. Please select "
                 "a different name or delete existing project")
-            msg.exec_()
+            msg.exec()
 
         elif reply == "CHECKNAME":
             print("Name can not contain space between them")
@@ -109,4 +109,4 @@ class UploadSub(QtWidgets.QWidget):
             msg.setWindowTitle("Error Message")
             msg.showMessage(
                 'The project name should not contain space between them')
-            msg.exec_()
+            msg.exec()

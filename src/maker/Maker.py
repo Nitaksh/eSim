@@ -466,7 +466,7 @@ class Handler(watchdog.events.PatternMatchingEventHandler):
             "NgVeri File: " +
             self.verilogfile +
             " modified. Please click on Refresh")
-        msg.exec_()
+        msg.exec()
         print("NgVeri File: " + self.verilogfile +
               " modified. Please click on Refresh")
         # self.obj_Appconfig.print_info("NgVeri File:\
@@ -508,7 +508,7 @@ class Handler(watchdog.events.PatternMatchingEventHandler):
 #                         msg.showMessage(
 #                             "NgVeri File: "+self.verilogfile+"\
 # modified. Please click on Refresh")
-#                         msg.exec_()
+#                         msg.exec()
 #                         print("NgVeri File: "+self.verilogfile+"\
 # modified. Please click on Refresh")
 #                         # self.obj_Appconfig.print_info("NgVeri File: \
