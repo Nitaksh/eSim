@@ -48,7 +48,7 @@ class UploadSub(QtWidgets.QWidget):
             self.msg.setModal(True)
             self.msg.setWindowTitle("Error Message")
             self.msg.showMessage("Please ensure that filename ends with .sub")
-            self.msg.exec_()
+            self.msg.exec()
             print("Invalid filename")
             return
 
@@ -63,7 +63,7 @@ class UploadSub(QtWidgets.QWidget):
                 create_subcircuit + " ** and ends with **.ends " +
                 create_subcircuit + " **"
             )
-            self.msg.exec_()
+            self.msg.exec()
             print("Invalid file format")
             return
 

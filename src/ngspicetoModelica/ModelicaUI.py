@@ -220,7 +220,7 @@ class OpenModelicaEditor(QtWidgets.QWidget):
                 "Ngspice netlist successfully converted to OpenModelica " +
                 "netlist"
             )
-            self.msg.exec_()
+            self.msg.exec()
 
         except BaseException as e:
             traceback.print_exc()
@@ -263,4 +263,4 @@ class OpenModelicaEditor(QtWidgets.QWidget):
             self.msg.setText(self.msgContent)
             self.msg.setWindowTitle("Missing OpenModelica")
             self.obj_appconfig.print_info(self.msgContent)
-            self.msg.exec_()
+            self.msg.exec()

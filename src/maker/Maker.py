@@ -199,7 +199,7 @@ class Maker(QtWidgets.QWidget):
             self.msg.showMessage(
                 "Error in saving verilog file. Please check if it is chosen."
             )
-            self.msg.exec_()
+            self.msg.exec()
             print("Error in saving verilog file: " + str(err))
 
     # This is used to run the makerchip-app
@@ -330,7 +330,7 @@ Add \\TLV here if desired\
             self.msg.showMessage(
                 "Error in running Makerchip IDE. \
 Please check if verilog file is chosen.")
-            self.msg.exec_()
+            self.msg.exec()
             print("Error in running Makerchip IDE. \
 Please check if verilog file is chosen.")
         #   initial = self.read_file()

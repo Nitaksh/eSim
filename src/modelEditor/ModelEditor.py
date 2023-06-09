@@ -457,7 +457,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 self.msg.showMessage(
                     "The paramaeter " + text1 + " is already in the list"
                 )
-                self.msg.exec_()
+                self.msg.exec()
                 return
             text2, ok = QtWidgets.QInputDialog.getText(
                 self, 'Value', 'Enter Value'
@@ -664,7 +664,7 @@ class ModelEditorclass(QtWidgets.QWidget):
                 self.msg.setWindowTitle("Error Message")
                 self.msg.showMessage(
                     'The file with name ' + text + ' already exists.')
-                self.msg.exec_()
+                self.msg.exec()
 
     def savethefile(self, editfile):
         '''

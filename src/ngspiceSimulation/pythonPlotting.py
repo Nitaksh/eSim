@@ -673,7 +673,7 @@ class DataExtraction:
             self.msg.setModal(True)
             self.msg.setWindowTitle("Error Message")
             self.msg.showMessage('Unable to open plot data files.')
-            self.msg.exec_()
+            self.msg.exec()
 
         try:
             for l in alli[3].split(" "):
@@ -688,7 +688,7 @@ class DataExtraction:
             self.msg.setModal(True)
             self.msg.setWindowTitle("Error Message")
             self.msg.showMessage('Unable to read Analysis File.')
-            self.msg.exec_()
+            self.msg.exec()
 
         d = self.numberFinder(fpath)
         d1 = int(d[0] + 1)

@@ -132,7 +132,7 @@ class MainWindow(QtWidgets.QWidget):
             self.content = "Your schematic contain unknown model " + \
                            ', '.join(unknownModelList)
             self.msg.showMessage(self.content)
-            self.msg.exec_()
+            self.msg.exec()
 
         elif multipleModelList:
             self.msg = QtWidgets.QErrorMessage()
@@ -142,7 +142,7 @@ class MainWindow(QtWidgets.QWidget):
             modelParamXML directory " + \
                             ', '.join(multipleModelList[0])
             self.msg.showMessage(self.mcontent)
-            self.msg.exec_()
+            self.msg.exec()
 
         else:
             self.createMainWindow()

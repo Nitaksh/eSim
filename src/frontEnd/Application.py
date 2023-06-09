@@ -164,8 +164,8 @@ class Application(QtWidgets.QMainWindow):
         # corner in the application window.
         self.spacer = QtWidgets.QWidget()
         self.spacer.setSizePolicy(
-            QtWidgets.QSizePolicy.Expanding,
-            QtWidgets.QSizePolicy.Expanding)
+            QtWidgets.QSizePolicy.Policy.Expanding,
+            QtWidgets.QSizePolicy.Policy.Expanding)
         self.topToolbar.addWidget(self.spacer)
         self.logo = QtWidgets.QLabel()
         self.logopic = QtGui.QPixmap(
@@ -173,7 +173,7 @@ class Application(QtWidgets.QMainWindow):
                 os.path.abspath(''), init_path + 'images', 'fosseeLogo.png'
             ))
         self.logopic = self.logopic.scaled(
-            QSize(150, 150), QtCore.Qt.KeepAspectRatio)
+            QSize(150, 150),Qt.AspectRatioMode.KeepAspectRatio)
         self.logo.setPixmap(self.logopic)
         self.logo.setStyleSheet("padding:0 15px 0 0;")
         self.topToolbar.addWidget(self.logo)
@@ -234,7 +234,7 @@ class Application(QtWidgets.QMainWindow):
 
         # Adding Action Widget to tool bar
         self.lefttoolbar = QtWidgets.QToolBar('Left ToolBar')
-        self.addToolBar(QtCore.Qt.LeftToolBarArea, self.lefttoolbar)
+        self.addToolBar(Qt.ToolBarArea.LeftToolBarArea, self.lefttoolbar)
         self.lefttoolbar.addAction(self.kicad)
         self.lefttoolbar.addAction(self.conversion)
         self.lefttoolbar.addAction(self.ngspice)
@@ -519,7 +519,7 @@ class Application(QtWidgets.QMainWindow):
                 'Please save and close all the KiCad ' +
                 'windows first, then change the mode'
             )
-            self.msg.exec_()
+            self.msg.exec()
 
     def help_project(self):
         """
@@ -569,7 +569,7 @@ class Application(QtWidgets.QMainWindow):
                 self.msg.showMessage(
                     'Netlist file (*.cir.out) not found.'
                 )
-                self.msg.exec_()
+                self.msg.exec()
                 return
 
             currTime = time.time()
@@ -592,7 +592,7 @@ class Application(QtWidgets.QMainWindow):
                             'Please close all the Ngspice windows '
                             'and then rerun the simulation.'
                         )
-                        self.msg.exec_()
+                        self.msg.exec()
                         return
 
                     st = os.stat(os.path.join(self.projDir, "plot_data_i.txt"))
@@ -619,7 +619,7 @@ class Application(QtWidgets.QMainWindow):
                         'Check netlist file (*.cir.out) '
                         'to change simulation parameters.'
                     )
-                    self.msg.exec_()
+                    self.msg.exec()
 
                     return
 
@@ -634,7 +634,7 @@ class Application(QtWidgets.QMainWindow):
                     'Error while opening python plotting Editor.'
                     ' Please look at console for more details.'
                 )
-                self.msg.exec_()
+                self.msg.exec()
                 print("Exception Message:", str(e), traceback.format_exc())
                 self.obj_appconfig.print_error('Exception Message : ' + str(e))
 
@@ -646,7 +646,7 @@ class Application(QtWidgets.QMainWindow):
                 'Please select the project first.'
                 ' You can either create new project or open existing project'
             )
-            self.msg.exec_()
+            self.msg.exec()
 
     def open_subcircuit(self):
         """
@@ -687,7 +687,7 @@ class Application(QtWidgets.QMainWindow):
                                  'Please make sure it is installed')
             self.obj_appconfig.print_error('Error while opening NGHDL. ' +
                                            'Please make sure it is installed')
-            self.msg.exec_()
+            self.msg.exec()
 
     def open_makerchip(self):
         """
@@ -765,7 +765,7 @@ class Application(QtWidgets.QMainWindow):
                         self.msg.setText(self.msgContent)
                         self.msg.setWindowTitle("Missing OpenModelica")
                         self.obj_appconfig.print_info(self.msgContent)
-                        self.msg.exec_()
+                        self.msg.exec()
 
                 except Exception as e:
                     self.msg = QtWidgets.QErrorMessage()
@@ -775,7 +775,7 @@ class Application(QtWidgets.QMainWindow):
                     self.msg.showMessage(
                         'Unable to convert NgSpice netlist to\
                             Modelica netlist :'+str(e))
-                    self.msg.exec_()
+                    self.msg.exec()
                     self.obj_appconfig.print_error(str(e))
                 """
 
@@ -789,7 +789,7 @@ class Application(QtWidgets.QMainWindow):
                     'Current project does not contain any Ngspice file. ' +
                     'Please create Ngspice file with extension .cir.out'
                 )
-                self.msg.exec_()
+                self.msg.exec()
         else:
             self.msg = QtWidgets.QErrorMessage()
             self.msg.setModal(True)
@@ -798,7 +798,7 @@ class Application(QtWidgets.QMainWindow):
                 'Please select the project first. You can either ' +
                 'create a new project or open an existing project'
             )
-            self.msg.exec_()
+            self.msg.exec()
 
     def open_OMoptim(self):
         """
@@ -835,7 +835,7 @@ class Application(QtWidgets.QMainWindow):
             self.msg.setText(self.msgContent)
             self.msg.setWindowTitle("Error Message")
             self.obj_appconfig.print_info(self.msgContent)
-            self.msg.exec_()
+            self.msg.exec()
 
 
 # This class initialize the Main View of Application
@@ -917,9 +917,10 @@ def main(args):
 
     splash_pix = QtGui.QPixmap(init_path + 'images/splash_screen_esim.png')
     splash = QtWidgets.QSplashScreen(
-        appView, splash_pix, Qt.WindowType.WindowStaysOnTopHint
+     splash_pix, Qt.WindowType.WindowStaysOnTopHint
     )
     splash.setMask(splash_pix.mask())
+    appView.show()
     splash.setDisabled(True)
     splash.show()
 
@@ -943,7 +944,7 @@ def main(args):
     else:
         appView.obj_workspace.show()
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 # Call main function
