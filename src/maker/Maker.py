@@ -90,7 +90,7 @@ class Maker(QtWidgets.QWidget):
         self.grid = QtWidgets.QGridLayout()
         self.setLayout(self.grid)
 
-        self.grid.addWidget(self.createoptionsBox(), 0, 0, Qt.AlignTop)
+        self.grid.addWidget(self.createoptionsBox(), 0, 0, Qt.AlignmentFlag.AlignTop)
         self.grid.addWidget(self.creategroup(), 1, 0, 5, 0)
         # self.grid.addWidget(self.creategroup(), 1, 0, 5, 0)
         self.show()

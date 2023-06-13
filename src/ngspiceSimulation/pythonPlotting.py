@@ -141,8 +141,8 @@ class plotWindow(QtWidgets.QMainWindow):
         self.plotfuncbtn = QtWidgets.QPushButton("Plot Function")
         self.plotfuncbtn.setToolTip('<b>Press</b> to Plot the function')
 
-        self.palette1.setColor(QtGui.QPalette.Foreground, Qt.blue)
-        self.palette2.setColor(QtGui.QPalette.Foreground, Qt.red)
+        self.palette1.setColor(QtGui.QPalette.ColorRole.Text, QtGui.QColor(Qt.GlobalColor.blue))
+        self.palette2.setColor(QtGui.QPalette.ColorRole.Text, QtGui.QColor(Qt.GlobalColor.red))
         self.funcName.setPalette(self.palette1)
         self.funcExample.setPalette(self.palette2)
         # Widgets for grid, plot button and multimeter button.

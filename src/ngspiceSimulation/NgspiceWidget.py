@@ -50,7 +50,7 @@ class NgspiceWidget(QtWidgets.QWidget):
             (
                 self.obj_appconfig.proc_dict
                 [self.obj_appconfig.current_project['ProjectName']].append(
-                    self.process.pid())
+                    self.process.processId())
             )
             self.process = QtCore.QProcess(self)
             self.command = "gaw " + command.replace(".cir.out", ".raw")
