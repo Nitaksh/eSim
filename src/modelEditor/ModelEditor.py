@@ -186,7 +186,7 @@ class ModelEditorclass(QtWidgets.QWidget):
         filetype = str(self.types.currentText())
         self.openfiletype(filetype)
         # When element selected from combo box, call setfiletype
-        self.types.activated[str].connect(self.setfiletype)
+        self.types.activated.connect(self.setfiletype)
 
     def mos_click(self):
         '''
@@ -208,7 +208,7 @@ class ModelEditorclass(QtWidgets.QWidget):
         self.types.addItem('PMOS(Level-8 180um)')
         filetype = str(self.types.currentText())
         self.openfiletype(filetype)
-        self.types.activated[str].connect(self.setfiletype)
+        self.types.activated.connect(self.setfiletype)
 
     def jfet_click(self):
         '''
@@ -225,7 +225,7 @@ class ModelEditorclass(QtWidgets.QWidget):
         self.types.addItem('P-JFET')
         filetype = str(self.types.currentText())
         self.openfiletype(filetype)
-        self.types.activated[str].connect(self.setfiletype)
+        self.types.activated.connect(self.setfiletype)
 
     def igbt_click(self):
         '''
@@ -242,7 +242,7 @@ class ModelEditorclass(QtWidgets.QWidget):
         self.types.addItem('P-IGBT')
         filetype = str(self.types.currentText())
         self.openfiletype(filetype)
-        self.types.activated[str].connect(self.setfiletype)
+        self.types.activated.connect(self.setfiletype)
 
     def magnetic_click(self):
         '''
@@ -261,7 +261,7 @@ class ModelEditorclass(QtWidgets.QWidget):
         - Get the type clicked, from text
         - Open appropriate table using openfiletype(filetype)
         '''
-        self.filetype = str(text)
+        self.filetype = self.types.currentText()
         self.openfiletype(self.filetype)
 
     def openfiletype(self, filetype):

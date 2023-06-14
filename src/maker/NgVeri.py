@@ -267,6 +267,7 @@ class NgVeri(QtWidgets.QWidget):
     # This function is used to remove models in modlst of Ngspice folder if
     # the user wants to remove a model. Note: files do not get removed
     def edit_modlst(self, text):
+        text = self.entry_var[self.count].currentText()
         if text == "Remove Verilog Models":
             return
         index = self.entry_var[1].findText(text)
@@ -313,6 +314,7 @@ class NgVeri(QtWidgets.QWidget):
           This is to remove lint_off comments needed by the verilator warnings.
           This function writes to the lint_off.txt in the library/tlv folder.
         '''
+        text = self.entry_var[self.count].currentText()
         init_path = '../../'
         if os.name == 'nt':
             init_path = ''
@@ -387,8 +389,8 @@ class NgVeri(QtWidgets.QWidget):
         self.modlst.close()
         for item in self.data:
             if item != "\n":
-                self.entry_var[self.count].addItem(item.strip())
-        self.entry_var[self.count].activated[str].connect(self.edit_modlst)
+                self.entry_var[self.count].addItem(item.strip())        
+        self.entry_var[self.count].activated.connect(self.edit_modlst)
         self.trgrid.addWidget(self.entry_var[self.count], 1, 4, 1, 2)
         self.count += 1
         self.entry_var[self.count] = QtWidgets.QComboBox()
@@ -404,7 +406,7 @@ class NgVeri(QtWidgets.QWidget):
         for item in self.data:
             if item != "\n":
                 self.entry_var[self.count].addItem(item.strip())
-        self.entry_var[self.count].activated[str].connect(self.lint_off_edit)
+        self.entry_var[self.count].activated.connect(self.lint_off_edit)
         self.trgrid.addWidget(self.entry_var[self.count], 2, 4, 1, 2)
         self.count += 1
         self.entry_var[self.count] = QtWidgets.QLineEdit(self)
