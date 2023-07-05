@@ -1,6 +1,6 @@
-* /home/fossee/eSim-Workspace/High_Pass_Filter/High_Pass_Filter.cir
+* /home/nithish/Desktop/eSim/Examples/High_Pass_Filter/High_Pass_Filter.cir
 
-* EESchema Netlist Version 1.1 (Spice format) creation date: Mon Feb 29 21:46:20 2016
+* EESchema Netlist Version 1.1 (Spice format) creation date: Wed 14 Jun 2023 05:25:44 PM IST
 
 * To exclude a component from the Spice Netlist add [Spice_Netlist_Enabled] user FIELD set to: N
 * To reorder the component spice node sequence add [Spice_Node_Sequence] user FIELD and define sequence: 2,1,0
@@ -11,6 +11,5 @@ C1  out in 10u
 v1  in GND AC		
 U1  in plot_v1		
 U3  out plot_v1		
-U2  out plot_log		
 
 .end

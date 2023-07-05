@@ -1,4 +1,4 @@
-update=06/02/19 14:32:01
+update=Mon Aug 26 14:34:23 2019
 version=1
 last_client=eeschema
 [general]
@@ -29,7 +29,7 @@ version=1
 NetIExt=net
 [eeschema]
 version=1
-LibDir=../../../kicadSchematicLibrary
+LibDir=
 [eeschema/libraries]
 LibName1=eSim_Analog
 LibName2=eSim_Devices

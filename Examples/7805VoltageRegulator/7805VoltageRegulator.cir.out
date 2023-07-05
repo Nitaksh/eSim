@@ -15,7 +15,7 @@ v1  in1 in2 sine(0 24 50 0 0)
 * u2  in2 plot_v1
 * u3  out plot_v1
 x1 net-_c1-pad1_ gnd out lm7805
-.tran 10e-03 100e-03 0e-00
+.tran 10e-03 100e-03 0e-03
 
 * Control Statements 
 .control

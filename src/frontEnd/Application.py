@@ -10,14 +10,17 @@
 #          BUGS: ---
 #         NOTES: ---
 #        AUTHOR: Fahim Khan, fahim.elex@gmail.com
-#    MAINTAINED: Rahul Paknikar, rahulp@cse.iitb.ac.in
+#    MAINTAINED: Rahul Paknikar, rahulp@iitb.ac.in
 #                Sumanto Kar, sumantokar@iitb.ac.in
+#                Pranav P, pranavsdreams@gmail.com
 #  ORGANIZATION: eSim Team at FOSSEE, IIT Bombay
 #       CREATED: Tuesday 24 February 2015
-#      REVISION: Tuesday 13 September 2022
+#      REVISION: Wednesday 07 June 2023
 # =========================================================================
 
 import os
+import sys
+import shutil
 import traceback
 
 if os.name == 'nt':
@@ -29,6 +32,9 @@ else:
 
 from PyQt6 import QtGui, QtCore, QtWidgets
 from configuration.Appconfig import Appconfig
+from frontEnd import ProjectExplorer
+from frontEnd import Workspace
+from frontEnd import DockArea
 from projManagement.openProject import OpenProjectInfo
 from projManagement.newProject import NewProjectInfo
 from projManagement.Kicad import Kicad
@@ -49,6 +55,7 @@ import psutil
 class Application(QtWidgets.QMainWindow):
     """This class initializes all objects used in this file."""
     global project_name
+    simulationEndSignal = QtCore.pyqtSignal(QtCore.QProcess.ExitStatus, int)
 
     def __init__(self, *args):
         """Initialize main Application window."""
@@ -58,6 +65,9 @@ class Application(QtWidgets.QMainWindow):
 
         # Flag for mode of operation. Default is set to offline mode.
         self.online_flag = False
+
+        # Set slot for simulation end signal to plot simulation data
+        self.simulationEndSignal.connect(self.plotSimulationData)
 
         # Creating require Object
         self.obj_workspace = Workspace.Workspace()
@@ -160,20 +170,22 @@ class Application(QtWidgets.QMainWindow):
         self.topToolbar.addAction(self.switchmode)
         self.topToolbar.addAction(self.helpfile)
 
-        self.soc = QtWidgets.QToolButton(self)
-        self.soc.setText('Generate SoC')
-        self.soc.setToolTip(
-            '<b>SPICE to Verilog Conversion</b><br>' + \
-            '<br>The feature is under development.' + \
-            '<br>It will be released soon.' + \
-            '<br><br>Thank you for your patience!!!'
-        )
-        self.soc.setStyleSheet(" \
-        QWidget { border-radius: 15px; border: 1px \
-            solid gray; padding: 10px; margin-left: 20px; } \
-        ")
-        self.soc.clicked.connect(self.showSoCRelease)
-        self.topToolbar.addWidget(self.soc)
+        # ## This part is meant for SoC Generation which is currently  ##
+        # ## under development and will be will be required in future. ##
+        # self.soc = QtWidgets.QToolButton(self)
+        # self.soc.setText('Generate SoC')
+        # self.soc.setToolTip(
+        #     '<b>SPICE to Verilog Conversion</b><br>' + \
+        #     '<br>The feature is under development.' + \
+        #     '<br>It will be released soon.' + \
+        #     '<br><br>Thank you for your patience!!!'
+        # )
+        # self.soc.setStyleSheet(" \
+        # QWidget { border-radius: 15px; border: 1px \
+        #     solid gray; padding: 10px; margin-left: 20px; } \
+        # ")
+        # self.soc.clicked.connect(self.showSoCRelease)
+        # self.topToolbar.addWidget(self.soc)
 
         # This part is setting fossee logo to the right
         # corner in the application window.
@@ -261,17 +273,6 @@ class Application(QtWidgets.QMainWindow):
         self.lefttoolbar.addAction(self.omoptim)
         self.lefttoolbar.setOrientation(Qt.Orientation.Vertical)
         self.lefttoolbar.setIconSize(QSize(40, 40))
-
-
-    def showSoCRelease(self):
-        msg = '<b>SPICE to Verilog Conversion</b><br>' + \
-            '<br>The feature is under development.' + \
-            '<br>It will be released soon.' + \
-            '<br><br>Thank you for your patience!!!'
-        QtWidgets.QMessageBox.information(
-            self, 'SoC Generation', msg, QtWidgets.QMessageBox.Ok
-        )
-
 
     def closeEvent(self, event):
         '''
@@ -560,96 +561,17 @@ class Application(QtWidgets.QMainWindow):
         print("Current Project is : ", self.obj_appconfig.current_project)
         self.obj_Mainview.obj_dockarea.usermanual()
 
-    def checkIfProcessRunning(self, processName):
-        '''
-        Check if there is any running process
-        that contains the given name processName.
-        '''
-        # Iterate over the all the running process
-        for proc in psutil.process_iter():
-            try:
-                # Check if process name contains the given name string.
-                if processName.lower() in proc.name().lower():
-                    return True
-            except (psutil.NoSuchProcess,
-                    psutil.AccessDenied, psutil.ZombieProcess):
-                pass
-        return False
+    @QtCore.pyqtSlot(QtCore.QProcess.ExitStatus, int)
+    def plotSimulationData(self, exitCode, exitStatus):
+        """Enables interaction for new simulation and
+           displays the plotter dock where graphs can be plotted.
+        """
+        self.ngspice.setEnabled(True)
+        self.conversion.setEnabled(True)
+        self.closeproj.setEnabled(True)
+        self.wrkspce.setEnabled(True)
 
-    def open_ngspice(self):
-        """This Function execute ngspice on current project."""
-        self.projDir = self.obj_appconfig.current_project["ProjectName"]
-
-        if self.projDir is not None:
-
-            # Edited by Sumanto Kar 25/08/2021
-            if self.obj_Mainview.obj_dockarea.ngspiceEditor(
-                    self.projDir) is False:
-                print(
-                    "Netlist file (*.cir.out) not found."
-                )
-
-                self.msg = QtWidgets.QErrorMessage()
-                self.msg.setModal(True)
-                self.msg.setWindowTitle("Error Message")
-                self.msg.showMessage(
-                    'Netlist file (*.cir.out) not found.'
-                )
-                self.msg.exec()
-                return
-
-            currTime = time.time()
-            count = 0
-            while True:
-                try:
-                    # if os.name == 'nt':
-                    #     proc = 'mintty'
-                    # else:
-                    #     proc = 'xterm'
-
-                    # Edited by Sumanto Kar 25/08/2021
-                    if os.name != 'nt' and \
-                            self.checkIfProcessRunning('xterm') is False:
-                        self.msg = QtWidgets.QErrorMessage()
-                        self.msg.setModal(True)
-                        self.msg.setWindowTitle("Warning Message")
-                        self.msg.showMessage(
-                            'Simulation was interrupted/failed. '
-                            'Please close all the Ngspice windows '
-                            'and then rerun the simulation.'
-                        )
-                        self.msg.exec()
-                        return
-
-                    st = os.stat(os.path.join(self.projDir, "plot_data_i.txt"))
-                    if st.st_mtime >= currTime:
-                        break
-                except Exception:
-                    pass
-                time.sleep(1)
-
-                # Fail Safe ===>
-                count += 1
-                if count >= 10:
-                    print(
-                        "Ngspice taking too long for simulation. "
-                        "Check netlist file (*.cir.out) "
-                        "to change simulation parameters."
-                    )
-
-                    self.msg = QtWidgets.QErrorMessage()
-                    self.msg.setModal(True)
-                    self.msg.setWindowTitle("Warning Message")
-                    self.msg.showMessage(
-                        'Ngspice taking too long for simulation. '
-                        'Check netlist file (*.cir.out) '
-                        'to change simulation parameters.'
-                    )
-                    self.msg.exec()
-
-                    return
-
-            # Calling Python Plotting
+        if exitStatus == QtCore.QProcess.NormalExit and exitCode == 0:
             try:
                 self.obj_Mainview.obj_dockarea.plottingEditor()
             except Exception as e:
@@ -657,12 +579,41 @@ class Application(QtWidgets.QMainWindow):
                 self.msg.setModal(True)
                 self.msg.setWindowTitle("Error Message")
                 self.msg.showMessage(
-                    'Error while opening python plotting Editor.'
-                    ' Please look at console for more details.'
+                    'Data could not be plotted. Please try again.'
                 )
                 self.msg.exec()
                 print("Exception Message:", str(e), traceback.format_exc())
-                self.obj_appconfig.print_error('Exception Message : ' + str(e))
+                self.obj_appconfig.print_error('Exception Message : '
+                                               + str(e))
+
+    def open_ngspice(self):
+        """This Function execute ngspice on current project."""
+        projDir = self.obj_appconfig.current_project["ProjectName"]
+
+        if projDir is not None:
+            projName = os.path.basename(projDir)
+            ngspiceNetlist = os.path.join(projDir, projName + ".cir.out")
+
+            if not os.path.isfile(ngspiceNetlist):
+                print(
+                    "Netlist file (*.cir.out) not found."
+                )
+                self.msg = QtWidgets.QErrorMessage()
+                self.msg.setModal(True)
+                self.msg.setWindowTitle("Error Message")
+                self.msg.showMessage(
+                    'Netlist (*.cir.out) not found.'
+                )
+                self.msg.exec_()
+                return
+
+            self.obj_Mainview.obj_dockarea.ngspiceEditor(
+                projName, ngspiceNetlist, self.simulationEndSignal)
+
+            self.ngspice.setEnabled(False)
+            self.conversion.setEnabled(False)
+            self.closeproj.setEnabled(False)
+            self.wrkspce.setEnabled(False)
 
         else:
             self.msg = QtWidgets.QErrorMessage()
@@ -765,7 +716,7 @@ class Application(QtWidgets.QMainWindow):
                     # Creating a command for Ngspice to Modelica converter
                     self.cmd1 = "
                         python3 ../ngspicetoModelica/NgspicetoModelica.py "\
-                            +self.ngspiceNetlist
+                            + self.ngspiceNetlist
                     self.obj_workThread1 = Worker.WorkerThread(self.cmd1)
                     self.obj_workThread1.start()
                     if self.obj_validation.validateTool("OMEdit"):
