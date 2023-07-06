@@ -4,7 +4,7 @@
 #
 # This file does only contain a selection of the most common options. For a
 # full list see the documentation:
-# http://www.sphinx-doc.org/en/master/config
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 # -- Path setup --------------------------------------------------------------
 
@@ -14,27 +14,25 @@
 #
 import os
 import sys
+from PyQt6 import QtCore, QtGui, QtWidgets
 sys.path.insert(0, os.path.abspath('./src'))
 
 # added so that do not need to install them at runtime
-autodoc_mock_imports = ["PyQt5", "pathmagic", "matplotlib", "numpy"]
+autodoc_mock_imports = ["PyQt6", "pathmagic", "matplotlib", "numpy"]
+
 # -- Project information -----------------------------------------------------
 
-project = u'eSim'
-copyright = u'2022, FOSSEE'
-author = u'FOSSEE, IIT Bombay'
+project = 'eSim'
+copyright = '2022, FOSSEE'
+author = 'FOSSEE, IIT Bombay'
 
 # The short X.Y version
-version = u'2.2'
+version = '2.2'
 # The full version, including alpha/beta/rc tags
-release = u'2.2.0'
+release = '2.2.0'
 
 
 # -- General configuration ---------------------------------------------------
-
-# If your documentation needs a minimal Sphinx version, state it here.
-#
-# needs_sphinx = '1.0'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -47,7 +45,7 @@ extensions = [
 templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
+# You can specify multiple suffixes as a list of string:
 #
 # source_suffix = ['.rst', '.md']
 source_suffix = '.rst'
@@ -59,13 +57,13 @@ master_doc = 'index'
 # for a list of supported languages.
 #
 # This is also used if you do content translation via gettext catalogs.
-# Usually you set "language" from the command line for these cases.
+# Usually, you set "language" from the command line for these cases.
 language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
@@ -73,10 +71,10 @@ pygments_style = None
 
 # -- Options for HTML output -------------------------------------------------
 
-# The theme to use for HTML and HTML Help pages.  See the documentation for
+# The theme to use for HTML and HTML Help pages. See the documentation for
 # a list of builtin themes.
 #
-html_theme = "default"
+html_theme = 'default'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -92,7 +90,7 @@ html_static_path = ['_static']
 # to template names.
 #
 # The default sidebars (for documents that don't match any pattern) are
-# defined by theme itself.  Builtin themes are using these templates by
+# defined by the theme itself. Builtin themes are using these templates by
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
@@ -129,8 +127,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'eSim.tex', u'eSim Documentation',
-     u'Fossee', 'manual'),
+    (master_doc, 'eSim.tex', 'eSim Documentation',
+     'Fossee', 'manual'),
 ]
 
 
@@ -139,7 +137,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'esim', u'eSim Documentation',
+    (master_doc, 'esim', 'eSim Documentation',
      [author], 1)
 ]
 
@@ -150,28 +148,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'eSim', u'eSim Documentation',
+    (master_doc, 'eSim', 'eSim Documentation',
      author, 'eSim', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-# -- Options for Epub output -------------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
-
-
-# -- Extension configuration -------------------------------------------------

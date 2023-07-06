@@ -1,4 +1,5 @@
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 from ngspiceSimulation.pythonPlotting import plotWindow
 from ngspiceSimulation.NgspiceWidget import NgspiceWidget
 from configuration.Appconfig import Appconfig
@@ -49,7 +50,7 @@ class DockArea(QtWidgets.QMainWindow):
             QWidget { border-radius: 15px; border: 1px solid gray;\
                 padding: 5px; width: 200px; height: 150px;  } \
             ")
-            self.addDockWidget(QtCore.Qt.TopDockWidgetArea, dock[dockName])
+            self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea, dock[dockName])
 
         # self.tabifyDockWidget(dock['Notes'],dock['Blank'])
         self.show()
@@ -68,7 +69,7 @@ class DockArea(QtWidgets.QMainWindow):
         dock['Tips-' + str(count)] = \
             QtWidgets.QDockWidget('Tips-' + str(count))
         dock['Tips-' + str(count)].setWidget(self.testWidget)
-        self.addDockWidget(QtCore.Qt.TopDockWidgetArea,
+        self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea,
                            dock['Tips-' + str(count)])
         self.tabifyDockWidget(
             dock['Welcome'], dock['Tips-' + str(count)])
@@ -100,15 +101,12 @@ class DockArea(QtWidgets.QMainWindow):
 
         # Adding to main Layout
         self.plottingWidget.setLayout(self.plottingLayout)
-        dock[dockName + str(count)
-             ] = QtWidgets.QDockWidget(dockName
-                                       + str(count))
-        dock[dockName + str(count)] \
-            .setWidget(self.plottingWidget)
-        self.addDockWidget(QtCore.Qt.TopDockWidgetArea,
-                           dock[dockName + str(count)])
-        self.tabifyDockWidget(dock['Welcome'],
-                              dock[dockName + str(count)])
+        dock['Plotting-' + str(count)
+             ] = QtWidgets.QDockWidget('Plotting-' + str(count))
+        dock['Plotting-' + str(count)].setWidget(self.plottingWidget)
+        self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea,
+                           dock['Plotting-' + str(count)])
+        self.tabifyDockWidget(dock['Welcome'], dock['Plotting-' + str(count)])
 
         dock[dockName + str(count)].setVisible(True)
         dock[dockName + str(count)].setFocus()
@@ -133,17 +131,12 @@ class DockArea(QtWidgets.QMainWindow):
 
         # Adding to main Layout
         self.ngspiceWidget.setLayout(self.ngspiceLayout)
-        dockName = f'Simulation-{projName}-'
-        dock[dockName + str(count)
-             ] = QtWidgets.QDockWidget(dockName
-                                       + str(count))
-        dock[dockName + str(count)] \
-            .setWidget(self.ngspiceWidget)
-        self.addDockWidget(QtCore.Qt.TopDockWidgetArea,
-                           dock[dockName + str(count)])
-        self.tabifyDockWidget(dock['Welcome'],
-                              dock[dockName
-                                   + str(count)])
+        dock['NgSpice-' + str(count)
+             ] = QtWidgets.QDockWidget('NgSpice-' + str(count))
+        dock['NgSpice-' + str(count)].setWidget(self.ngspiceWidget)
+        self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea,
+                           dock['NgSpice-' + str(count)])
+        self.tabifyDockWidget(dock['Welcome'], dock['NgSpice-' + str(count)])
 
         # CSS
         dock[dockName + str(count)].setStyleSheet(" \
@@ -179,13 +172,11 @@ class DockArea(QtWidgets.QMainWindow):
         # Adding to main Layout
         self.modelwidget.setLayout(self.modellayout)
 
-        dock[dockName +
-             str(count)] = QtWidgets.QDockWidget(dockName
-                                                 + str(count))
-        dock[dockName + str(count)] \
-            .setWidget(self.modelwidget)
-        self.addDockWidget(QtCore.Qt.TopDockWidgetArea,
-                           dock[dockName + str(count)])
+        dock['Model Editor-' +
+             str(count)] = QtWidgets.QDockWidget('Model Editor-' + str(count))
+        dock['Model Editor-' + str(count)].setWidget(self.modelwidget)
+        self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea,
+                           dock['Model Editor-' + str(count)])
         self.tabifyDockWidget(dock['Welcome'],
                               dock[dockName + str(count)])
 
@@ -220,8 +211,8 @@ class DockArea(QtWidgets.QMainWindow):
             QtWidgets.QDockWidget(dockName + str(count))
         dock[dockName +
              str(count)].setWidget(self.kicadToNgspiceWidget)
-        self.addDockWidget(QtCore.Qt.TopDockWidgetArea,
-                           dock[dockName + str(count)])
+        self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea,
+                           dock['kicadToNgspice-' + str(count)])
         self.tabifyDockWidget(dock['Welcome'],
                               dock[dockName + str(count)])
 
@@ -256,13 +247,11 @@ class DockArea(QtWidgets.QMainWindow):
         self.subcktLayout.addWidget(Subcircuit(self))
 
         self.subcktWidget.setLayout(self.subcktLayout)
-        dock[dockName +
-             str(count)] = QtWidgets.QDockWidget(dockName
-                                                 + str(count))
-        dock[dockName + str(count)] \
-            .setWidget(self.subcktWidget)
-        self.addDockWidget(QtCore.Qt.TopDockWidgetArea,
-                           dock[dockName + str(count)])
+        dock['Subcircuit-' +
+             str(count)] = QtWidgets.QDockWidget('Subcircuit-' + str(count))
+        dock['Subcircuit-' + str(count)].setWidget(self.subcktWidget)
+        self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea,
+                           dock['Subcircuit-' + str(count)])
         self.tabifyDockWidget(dock['Welcome'],
                               dock[dockName + str(count)])
 
@@ -291,12 +280,11 @@ class DockArea(QtWidgets.QMainWindow):
         self.makerLayout.addWidget(makerchip(self))
 
         self.makerWidget.setLayout(self.makerLayout)
-        dock[dockName +
-             str(count)] = QtWidgets.QDockWidget(dockName
-                                                 + str(count))
-        dock[dockName + str(count)].setWidget(self.makerWidget)
-        self.addDockWidget(QtCore.Qt.TopDockWidgetArea,
-                           dock[dockName + str(count)])
+        dock['Makerchip-' +
+             str(count)] = QtWidgets.QDockWidget('Makerchip-' + str(count))
+        dock['Makerchip-' + str(count)].setWidget(self.makerWidget)
+        self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea,
+                           dock['Makerchip-' + str(count)])
         self.tabifyDockWidget(dock['Welcome'],
                               dock[dockName + str(count)])
 
@@ -323,7 +311,7 @@ class DockArea(QtWidgets.QMainWindow):
         dock['User Manual-' +
              str(count)] = QtWidgets.QDockWidget('User Manual-' + str(count))
         dock['User Manual-' + str(count)].setWidget(self.usermanualWidget)
-        self.addDockWidget(QtCore.Qt.TopDockWidgetArea,
+        self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea,
                            dock['User Manual-' + str(count)])
         self.tabifyDockWidget(dock['Welcome'],
                               dock['User Manual-' + str(count)])
@@ -352,15 +340,12 @@ class DockArea(QtWidgets.QMainWindow):
         self.modelicaLayout.addWidget(OpenModelicaEditor(projDir))
 
         self.modelicaWidget.setLayout(self.modelicaLayout)
-        dock[dockName + str(count)
-             ] = QtWidgets.QDockWidget(dockName + str(count))
-        dock[dockName + str(count)] \
-            .setWidget(self.modelicaWidget)
-        self.addDockWidget(QtCore.Qt.TopDockWidgetArea,
-                           dock[dockName
-                                + str(count)])
-        self.tabifyDockWidget(dock['Welcome'], dock[dockName
-                                                    + str(count)])
+        dock['Modelica-' + str(count)
+             ] = QtWidgets.QDockWidget('Modelica-' + str(count))
+        dock['Modelica-' + str(count)].setWidget(self.modelicaWidget)
+        self.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea,
+                           dock['Modelica-' + str(count)])
+        self.tabifyDockWidget(dock['Welcome'], dock['Modelica-' + str(count)])
 
         dock[dockName + str(count)].setVisible(True)
         dock[dockName + str(count)].setFocus()

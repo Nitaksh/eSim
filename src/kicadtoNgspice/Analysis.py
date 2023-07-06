@@ -1,4 +1,5 @@
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtCore import Qt
 from . import TrackWidget
 import os
 from xml.etree import ElementTree as ET
@@ -51,7 +52,7 @@ class Analysis(QtWidgets.QWidget):
         self.grid = QtWidgets.QGridLayout()
         self.setLayout(self.grid)
 
-        self.grid.addWidget(self.createCheckBox(), 0, 0, QtCore.Qt.AlignTop)
+        self.grid.addWidget(self.createCheckBox(), 0, 0, Qt.AlignmentFlag.AlignTop)
         self.grid.addWidget(self.createACgroup(), 1, 0, 5, 0)
         self.grid.addWidget(self.createDCgroup(), 1, 0, 5, 0)
         self.grid.addWidget(self.createTRANgroup(), 1, 0, 5, 0)
@@ -282,7 +283,7 @@ class Analysis(QtWidgets.QWidget):
             self.ac_parameter[self.parameter_cnt] = "Hz"
 
         # Event listener for combo action
-        self.start_fre_combo.activated[str].connect(self.start_combovalue)
+        self.start_fre_combo.activated.connect(self.start_combovalue)
 
         self.parameter_cnt = self.parameter_cnt + 1
         self.stop_fre_combo = QtWidgets.QComboBox()
@@ -300,7 +301,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.ac_parameter[self.parameter_cnt] = "Hz"
 
-        self.stop_fre_combo.activated[str].connect(self.stop_combovalue)
+        self.stop_fre_combo.activated.connect(self.stop_combovalue)
 
         self.track_obj.AC_entry_var["ITEMS"] = self.ac_entry_var
         self.track_obj.AC_Parameter["ITEMS"] = self.ac_parameter
@@ -352,7 +353,7 @@ class Analysis(QtWidgets.QWidget):
         - Check where it is Hz, MHz, etc.
         - Accordingly set ac_parameter
         """
-        self.ac_parameter[0] = str(text)
+        self.ac_parameter[0] = self.start_fre_combo.currentText()
 
     def stop_combovalue(self, text):
         """
@@ -360,7 +361,7 @@ class Analysis(QtWidgets.QWidget):
         - Check where it is Hz, MHz, etc.
         - Accordingly set ac_parameter
         """
-        self.ac_parameter[1] = str(text)
+        self.ac_parameter[1] = self.stop_fre_combo.currentText()
 
     def set_ac_type(self):
         """
@@ -498,7 +499,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.dc_parameter[self.parameter_cnt] = "Volts or Amperes"
 
-        self.start_combo.activated[str].connect(self.start_changecombo)
+        self.start_combo.activated.connect(self.start_changecombo)
         self.parameter_cnt += 1
 
         self.increment_combo = QtWidgets.QComboBox(self)
@@ -515,7 +516,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.dc_parameter[self.parameter_cnt] = "Volts or Amperes"
 
-        self.increment_combo.activated[str].connect(self.increment_changecombo)
+        self.increment_combo.activated.connect(self.increment_changecombo)
         self.parameter_cnt += 1
 
         self.stop_combo = QtWidgets.QComboBox(self)
@@ -532,7 +533,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.dc_parameter[self.parameter_cnt] = "Volts or Amperes"
 
-        self.stop_combo.activated[str].connect(self.stop_changecombo)
+        self.stop_combo.activated.connect(self.stop_changecombo)
         self.parameter_cnt += 1
 
         self.start_combo2 = QtWidgets.QComboBox(self)
@@ -549,7 +550,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.dc_parameter[self.parameter_cnt] = "Volts or Amperes"
 
-        self.start_combo2.activated[str].connect(self.start_changecombo2)
+        self.start_combo2.activated.connect(self.start_changecombo2)
         self.parameter_cnt += 1
 
         self.increment_combo2 = QtWidgets.QComboBox(self)
@@ -566,7 +567,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.dc_parameter[self.parameter_cnt] = "Volts or Amperes"
 
-        self.increment_combo2.activated[str].connect(
+        self.increment_combo2.activated.connect(
             self.increment_changecombo2)
         self.parameter_cnt += 1
 
@@ -584,7 +585,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.dc_parameter[self.parameter_cnt] = "Volts or Amperes"
 
-        self.stop_combo2.activated[str].connect(self.stop_changecombo2)
+        self.stop_combo2.activated.connect(self.stop_changecombo2)
         self.parameter_cnt += 1
 
         self.check = QtWidgets.QCheckBox('Operating Point Analysis', self)
@@ -642,27 +643,27 @@ class Analysis(QtWidgets.QWidget):
     # Below 6 functions to handle combo boxes for the DC group
     def start_changecombo(self, text):
         """Handle start combo box, ie. units, as mV, V..."""
-        self.dc_parameter[0] = str(text)
+        self.dc_parameter[0] = self.start_combo.currentText()
 
     def increment_changecombo(self, text):
         """Handle increment combo box, ie. units, as mV, V..."""
-        self.dc_parameter[1] = str(text)
+        self.dc_parameter[1] = self.increment_combo.currentText()
 
     def stop_changecombo(self, text):
         """Handle stop combo box, ie. units, as mV, V..."""
-        self.dc_parameter[2] = str(text)
+        self.dc_parameter[2] = self.stop_combo.currentText()
 
     def start_changecombo2(self, text):
         """Handle second start combo box, ie. units, as mV, V..."""
-        self.dc_parameter[3] = str(text)
+        self.dc_parameter[3] = self.start_combo2.currentText()
 
     def increment_changecombo2(self, text):
         """Handle second increment combo box, ie. units, as mV, V..."""
-        self.dc_parameter[4] = str(text)
+        self.dc_parameter[4] = self.increment_combo2.currentText()
 
     def stop_changecombo2(self, text):
         """Handle second stop combo box, ie. units, as mV, V..."""
-        self.dc_parameter[5] = str(text)
+        self.dc_parameter[5] = self.stop_combo2.currentText()
 
     def setflag(self):
         """
@@ -746,7 +747,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.tran_parameter[self.parameter_cnt] = "sec"
 
-        self.start_combobox.activated[str].connect(self.start_combo_change)
+        self.start_combobox.activated.connect(self.start_combo_change)
         self.parameter_cnt += 1
 
         self.step_combobox = QtWidgets.QComboBox()
@@ -761,7 +762,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.tran_parameter[self.parameter_cnt] = "sec"
 
-        self.step_combobox.activated[str].connect(self.step_combo_change)
+        self.step_combobox.activated.connect(self.step_combo_change)
         self.parameter_cnt += 1
 
         self.stop_combobox = QtWidgets.QComboBox()
@@ -776,7 +777,7 @@ class Analysis(QtWidgets.QWidget):
         except BaseException:
             self.tran_parameter[self.parameter_cnt] = "sec"
 
-        self.stop_combobox.activated[str].connect(self.stop_combo_change)
+        self.stop_combobox.activated.connect(self.stop_combo_change)
         self.parameter_cnt += 1
 
         self.track_obj.TRAN_entry_var["ITEMS"] = self.tran_entry_var
@@ -810,12 +811,12 @@ class Analysis(QtWidgets.QWidget):
     '''
     def start_combo_change(self, text):
         """Handle start combo box, ie. units, as second, ms"""
-        self.tran_parameter[0] = str(text)
+        self.tran_parameter[0] = self.start_combobox.currentText()
 
     def step_combo_change(self, text):
         """Handle step combo box, ie. units, as second, ms..."""
-        self.tran_parameter[1] = str(text)
+        self.tran_parameter[1] = self.step_combobox.currentText()
 
     def stop_combo_change(self, text):
         """Handle stop combo box, ie. units, as second, ms..."""
-        self.tran_parameter[2] = str(text)
+        self.tran_parameter[2] = self.stop_combobox.currentText()

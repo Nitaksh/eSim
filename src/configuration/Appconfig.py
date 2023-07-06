@@ -16,7 +16,7 @@
 #      REVISION: Tuesday 13 September 2022
 # =========================================================================
 
-from PyQt5 import QtWidgets
+from PyQt6 import QtWidgets
 import os
 import json
 from configparser import ConfigParser

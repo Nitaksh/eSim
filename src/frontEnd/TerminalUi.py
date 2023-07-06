@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from PyQt6 import QtCore, QtGui, QtWidgets, uic
 import os
 
 
@@ -15,7 +15,7 @@ class TerminalUi(QtWidgets.QMainWindow):
         param: args: arguments to be passed on to the ngspice call
         type: args: list
         """
-        super(TerminalUi, self).__init__()
+        super().__init__()
 
         # Other variables
         self.darkColor = True
@@ -54,12 +54,7 @@ class TerminalUi(QtWidgets.QMainWindow):
 
         # Add functionalities to Widgets
         self.lightDarkModeButton.setIcon(
-            QtGui.QIcon(
-                os.path.join(
-                    self.iconDir,
-                    'light_mode.png'
-                )
-            )
+            QtGui.QIcon.fromTheme("light_mode")
         )
         self.lightDarkModeButton.clicked.connect(self.changeColor)
         self.cancelSimulationButton.clicked.connect(self.cancelSimulation)
@@ -74,7 +69,7 @@ class TerminalUi(QtWidgets.QMainWindow):
         self.cancelSimulationButton.setEnabled(False)
         self.redoSimulationButton.setEnabled(True)
 
-        if (self.qProcess.state() == QtCore.QProcess.NotRunning):
+        if (self.qProcess.state() == QtCore.QProcess.ProcessState.NotRunning):
             return
 
         self.simulationCancelled = True
@@ -82,7 +77,7 @@ class TerminalUi(QtWidgets.QMainWindow):
 
         # To show progressBar completed
         self.progressBar.setMaximum(100)
-        self.progressBar.setProperty("value", 100)
+        self.progressBar.setValue(100)
 
         cancelFormat = '<span style="color:#FF8624; font-size:26px;">{}</span>'
         self.simulationConsole.append(
@@ -97,47 +92,37 @@ class TerminalUi(QtWidgets.QMainWindow):
         self.cancelSimulationButton.setEnabled(True)
         self.redoSimulationButton.setEnabled(False)
 
-        if (self.qProcess.state() != QtCore.QProcess.NotRunning):
+        if (self.qProcess.state() != QtCore.QProcess.ProcessState.NotRunning):
             return
 
         # To make the progressbar running
         self.progressBar.setMaximum(0)
-        self.progressBar.setProperty("value", -1)
+        self.progressBar.setValue(-1)
 
-        self.simulationConsole.setText("")
+        self.simulationConsole.clear()
         self.simulationCancelled = False
 
-        self.qProcess.start('ngspice', self.args)
+        self.qProcess.start("ngspice", self.args)
 
     def changeColor(self):
         """Toggles the :class:`Ui_Form` console between dark mode
                         and light mode
         """
         if self.darkColor is True:
-            self.simulationConsole.setStyleSheet("QTextEdit {\n \
-                background-color: white;\n \
-                color: black;\n \
-            }")
+            self.simulationConsole.setStyleSheet("QTextEdit {"
+                                                 "background-color: white;"
+                                                 "color: black;"
+                                                 "}")
             self.lightDarkModeButton.setIcon(
-                QtGui.QIcon(
-                    os.path.join(
-                        self.iconDir,
-                        "dark_mode.png"
-                        )
-                    )
-                )
+                QtGui.QIcon.fromTheme("dark_mode")
+            )
             self.darkColor = False
         else:
-            self.simulationConsole.setStyleSheet("QTextEdit {\n \
-                background-color: rgb(36, 31, 49);\n \
-                color: white;\n \
-            }")
+            self.simulationConsole.setStyleSheet("QTextEdit {"
+                                                 "background-color: rgb(36, 31, 49);"
+                                                 "color: white;"
+                                                 "}")
             self.lightDarkModeButton.setIcon(
-                QtGui.QIcon(
-                    os.path.join(
-                        self.iconDir,
-                        "light_mode.png"
-                        )
-                    )
-                )
+                QtGui.QIcon.fromTheme("light_mode")
+            )
             self.darkColor = True

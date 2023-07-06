@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 import os
 from xml.etree import ElementTree as ET
-from PyQt5 import QtWidgets
+
+from PyQt6 import QtWidgets, QtCore
 
 from . import TrackWidget
 
@@ -83,12 +84,8 @@ class Model(QtWidgets.QWidget):
 
                         paramLabel = QtWidgets.QLabel(item)
                         modelgrid.addWidget(paramLabel, self.nextrow, 0)
-                        self.obj_trac.model_entry_var[
-                            self.nextcount
-                        ] = QtWidgets.QLineEdit()
-
-                        self.obj_trac.model_entry_var[
-                            self.nextcount] = QtWidgets.QLineEdit()
+                        self.obj_trac.model_entry_var.append
+                        (QtWidgets.QLineEdit())
                         self.obj_trac.model_entry_var[self.nextcount].setText(
                             "")
 
@@ -147,7 +144,7 @@ class Model(QtWidgets.QWidget):
                                 self.obj_trac.model_entry_var[
                                     self.nextcount
                                 ].setText(child[i].text)
-                                self.entry_var[self.count].setText(
+                                self.entry_var[self.nextcount].setText(
                                     child[0].text)
                                 i = i + 1
                     except BaseException:

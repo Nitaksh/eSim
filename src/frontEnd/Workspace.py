@@ -16,7 +16,8 @@
 #      REVISION: Sunday 13 December 2020
 # =========================================================================
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtCore import Qt
 from configuration.Appconfig import Appconfig
 import time
 import os
@@ -45,7 +46,7 @@ class Workspace(QtWidgets.QWidget):
 
         self.mainwindow = QtWidgets.QVBoxLayout()
         self.split = QtWidgets.QSplitter()
-        self.split.setOrientation(QtCore.Qt.Vertical)
+        self.split.setOrientation(Qt.Orientation.Vertical)
 
         self.grid = QtWidgets.QGridLayout()
         self.note = QtWidgets.QTextEdit(self)
@@ -67,7 +68,8 @@ class Workspace(QtWidgets.QWidget):
 
         # Checkbox
         self.chkbox = QtWidgets.QCheckBox('Set Default', self)
-        self.chkbox.setCheckState(int(self.obj_appconfig.workspace_check))
+        check_state = Qt.CheckState.Checked if self.obj_appconfig.workspace_check else Qt.CheckState.Unchecked
+        self.chkbox.setCheckState(check_state)
 
         # Layout
         self.grid.addWidget(self.note, 0, 0, 1, 15)
@@ -81,8 +83,8 @@ class Workspace(QtWidgets.QWidget):
         self.setGeometry(QtCore.QRect(500, 250, 400, 400))
         self.setMaximumSize(4000, 200)
         self.setWindowTitle("eSim")
-        self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        self.setWindowModality(2)
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+        self.setWindowModality(Qt.WindowModality.ApplicationModal)
 
         init_path = '../../'
         if os.name == 'nt':

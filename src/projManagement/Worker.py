@@ -16,7 +16,7 @@
 #      REVISION: Sunday 16 August 2020
 # =========================================================================
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 import subprocess
 from configuration.Appconfig import Appconfig
 
@@ -107,7 +107,7 @@ class WorkerThread(QtCore.QThread):
                 'Please select the project first. You can either ' +
                 'create a new project or open an existing project.'
             )
-            msg.exec_()
+            msg.exec()
 
             return
 
